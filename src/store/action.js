@@ -10,16 +10,16 @@ export const ASSET_ONE_UPDATE = "ASSET_ONE_UPDATE";
 export const MEMBER_LIST = "MEMBER_LIST";
 export const MEMBER_LIST_UPDATE = "MEMBER_LIST_UPDATE";
 
-export function joinUser(dataToSubmit) {
-  const data = post("post", "/join", dataToSubmit);
+export async function joinUser(dataToSubmit) {
+  const data = await post("post", "/join", dataToSubmit);
   return {
     type: JOIN_USER,
     payload: data,
   };
 }
 
-export function loginUser(dataToSubmit) {
-  const data = post("post", "/login", dataToSubmit);
+export async function loginUser(dataToSubmit) {
+  const data = await post("post", "/login", dataToSubmit);
   return {
     type: LOGIN_USER,
     payload: data,
@@ -27,7 +27,7 @@ export function loginUser(dataToSubmit) {
 }
 
 export function updateUser(dataToSubmit) {
-  const data = post("post", "/infoUpdate", dataToSubmit);
+  const data = post("post", "/infoupdate", dataToSubmit);
   return {
     type: UPDATE_USER,
     payload: data,
@@ -35,7 +35,7 @@ export function updateUser(dataToSubmit) {
 }
 
 export function getMemberList() {
-  const data = get("get", "/admin/memberList");
+  const data = get("get", "/admin/memberlist");
   return {
     type: MEMBER_LIST,
     payload: data,

@@ -25,6 +25,8 @@ export default function User(state = initialState, action) {
         response: action.payload,
       };
     case LOGIN_USER:
+      if (action.payload.rCode === "FAIL")
+        return { ...state, loginSuccess: false };
       return {
         ...state,
         loginSuccess: true,

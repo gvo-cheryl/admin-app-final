@@ -25,6 +25,8 @@ function AdminPage(props) {
   const [open, setOpen] = React.useState(true);
   const { loginSuccess, response } = useSelector((state) => state.User);
   const dispatch = useDispatch();
+  console.log(response);
+  //dispatch(logout());
 
   if (!loginSuccess) return <Redirect to="/login" />;
 
@@ -94,7 +96,7 @@ function AdminPage(props) {
           </IconButton>
         </div>
         <Divider />
-        <List>{menuListItems(response.rData.adminMenu)}</List>
+        <List>{menuListItems()}</List>
         <Divider />
       </Drawer>
       <Route path={`${props.match.path}`} exact component={InfoUpdate} />

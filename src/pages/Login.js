@@ -48,8 +48,8 @@ function Login(props) {
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState();
   const [error, setError] = useState();
-  const { loginSuccess } = useSelector((state) => state.User);
-
+  const { loginSuccess, response } = useSelector((state) => state.User);
+  //dispatch(logout());
   if (loginSuccess) return <Redirect to="/" />;
 
   const onSubmit = async (e) => {
@@ -60,10 +60,12 @@ function Login(props) {
     }
     setEmailError(!isEmail(email));
     dispatch(loginUser({ email, password })).then((res) => {
+      console.log(res);
+
       switch (res.payload.rCode) {
         case "SUCCESS":
           const getMember = res.payload.rData.member;
-          switch (getMember.memberType) {
+          switch (getMember.role) {
             case "USER":
               dispatch(logout());
               alert("승인대기중입니다.");

@@ -23,11 +23,10 @@ function useConnect() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("/admin/memberList", { withCredentials: true })
-      .then((response) => {
-        setMemberList(response.data.rData.memberList);
-      });
+    axios.get("/memberlist").then((response) => {
+      console.log(response);
+      setMemberList(response.data.rData.memberList);
+    });
     setLoading(false);
   }, [dispatch]);
   return [memberList, loading];
@@ -35,7 +34,7 @@ function useConnect() {
 
 function MemberListContainer(props) {
   const { loginSuccess, response } = useSelector((state) => state.User);
-  const memberType = response.rData.member.memberType;
+  const role = response.rData.member.role;
   const classes = useStyles();
   const [memberList, loading] = useConnect();
 
@@ -44,18 +43,16 @@ function MemberListContainer(props) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .post("/admin/member-list-update", { members: memberList })
-      .then((res) => {
-        console.log(res);
-        if (res.data.rCode === "SUCCESS") {
-          alert("수정완료");
-        } else {
-          alert("ERROR");
-        }
-        props.history.push("/memberList");
-        <Redirect to="/memberList" />;
-      });
+    axios.post("/memberlist/update", { members: memberList }).then((res) => {
+      console.log(res);
+      if (res.data.rCode === "SUCCESS") {
+        alert("수정완료");
+      } else {
+        alert("ERROR");
+      }
+      props.history.push("/memberList");
+      <Redirect to="/memberList" />;
+    });
   };
 
   const onChangeContactA = (e, index) => {
@@ -65,8 +62,10 @@ function MemberListContainer(props) {
     memberList[index].contactB = e.target.value;
   };
 
-  const onChangeMemberType = (e, index) => {
-    memberList[index].memberType = e.target.value;
+  const onChangeRole = (e, index) => {
+    console.log(e.target.value);
+    console.log(index);
+    memberList[index].role = e.target.value;
   };
 
   return (
@@ -82,21 +81,21 @@ function MemberListContainer(props) {
               <TableCell>ContactA</TableCell>
               <TableCell>ContactB</TableCell>
               <TableCell>JoinedAt</TableCell>
-              <TableCell align="right">MemberType</TableCell>
+              <TableCell align="right">Role</TableCell>
             </TableRow>
           </TableHead>
           {loading ? (
             <div> Loading...</div>
           ) : (
             <>
-              {memberType === "ADMIN" ? (
+              {role === "ADMIN" ? (
                 <AdminMemberList memberList={memberList} />
               ) : (
                 <TopMemberList
                   memberList={memberList}
                   onChangeContactA={onChangeContactA}
                   onChangeContactB={onChangeContactB}
-                  onChangeMemberType={onChangeMemberType}
+                  onChangeRole={onChangeRole}
                 />
               )}
             </>

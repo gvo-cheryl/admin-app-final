@@ -7,7 +7,7 @@ import PeopleIcon from "@material-ui/icons/People";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
 
-export const menuListItems = (menus) => {
+export const menuListItems = () => {
   return (
     <div>
       <ListItem button component={Link} to="/">

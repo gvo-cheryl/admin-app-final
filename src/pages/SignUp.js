@@ -88,6 +88,7 @@ function SignUp() {
       name,
     };
     dispatch(joinUser(body)).then((response) => {
+      console.log(response);
       var rCode = response.payload.rCode;
       var rMessage = response.payload.rMessage;
       switch (rCode) {
