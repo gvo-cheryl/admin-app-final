@@ -97,6 +97,7 @@ function SignUp() {
           history.push("/login");
           break;
         case "FAIL":
+          alert(rMessage);
           setEmailError(rMessage);
           break;
         default:
@@ -226,7 +227,7 @@ function SignUp() {
                 fullWidth
                 name="phone"
                 label="phone"
-                type="tel"
+                type="number"
                 id="phone"
                 autoComplete="phone"
                 onChange={onChangePhone}

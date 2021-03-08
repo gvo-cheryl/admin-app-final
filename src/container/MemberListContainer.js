@@ -12,9 +12,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(10),
     marginLeft: theme.spacing(5),
   },
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
 }));
 
 function useConnect() {
@@ -34,11 +31,9 @@ function useConnect() {
 
 function MemberListContainer(props) {
   const { loginSuccess, response } = useSelector((state) => state.User);
-  const role = response.rData.member.role;
+  const memberType = response.rData.member.memberType;
   const classes = useStyles();
   const [memberList, loading] = useConnect();
-
-  if (!loginSuccess) return <Redirect to="/login" />;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -62,10 +57,10 @@ function MemberListContainer(props) {
     memberList[index].contactB = e.target.value;
   };
 
-  const onChangeRole = (e, index) => {
+  const onChangeMemberType = (e, index) => {
     console.log(e.target.value);
     console.log(index);
-    memberList[index].role = e.target.value;
+    memberList[index].memberType = e.target.value;
   };
 
   return (
@@ -81,21 +76,21 @@ function MemberListContainer(props) {
               <TableCell>ContactA</TableCell>
               <TableCell>ContactB</TableCell>
               <TableCell>JoinedAt</TableCell>
-              <TableCell align="right">Role</TableCell>
+              <TableCell align="right">memberType</TableCell>
             </TableRow>
           </TableHead>
           {loading ? (
             <div> Loading...</div>
           ) : (
             <>
-              {role === "ADMIN" ? (
+              {memberType === "ADMIN" ? (
                 <AdminMemberList memberList={memberList} />
               ) : (
                 <TopMemberList
                   memberList={memberList}
                   onChangeContactA={onChangeContactA}
                   onChangeContactB={onChangeContactB}
-                  onChangeRole={onChangeRole}
+                  onChangeMemberType={onChangeMemberType}
                 />
               )}
             </>

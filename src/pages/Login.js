@@ -65,7 +65,7 @@ function Login(props) {
       switch (res.payload.rCode) {
         case "SUCCESS":
           const getMember = res.payload.rData.member;
-          switch (getMember.role) {
+          switch (getMember.memberType) {
             case "USER":
               dispatch(logout());
               alert("승인대기중입니다.");

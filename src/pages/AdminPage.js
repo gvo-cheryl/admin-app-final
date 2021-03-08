@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  CssBaseline,
+  Drawer,
+  AppBar,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  IconButton,
+  Button,
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { menuListItems } from "../component/MenuList";
@@ -15,25 +18,31 @@ import { adminUseStyles } from "../component/css/adminUseStyles";
 import { Route, Redirect } from "react-router-dom";
 import InfoUpdate from "../component/InfoUpdate";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "@material-ui/core";
 import { logout } from "../store/reducer";
 import MemberListContainer from "../container/MemberListContainer";
 import AssetListContainer from "../container/AssetListContainer";
+import TableTest from "../component/TableTest";
+import { menuHandler } from "../store/action";
 
 function AdminPage(props) {
   const classes = adminUseStyles();
-  const [open, setOpen] = React.useState(true);
-  const { loginSuccess, response } = useSelector((state) => state.User);
+  const { loginSuccess, response, menuOpen } = useSelector(
+    (state) => state.User
+  );
+  const [open, setOpen] = useState(menuOpen);
   const dispatch = useDispatch();
-  console.log(response);
   //dispatch(logout());
+
+  console.log(open);
 
   if (!loginSuccess) return <Redirect to="/login" />;
 
   const handleDrawerOpen = () => {
+    dispatch(menuHandler(true));
     setOpen(true);
   };
   const handleDrawerClose = () => {
+    dispatch(menuHandler(false));
     setOpen(false);
   };
 
@@ -108,6 +117,7 @@ function AdminPage(props) {
         path={`${props.match.path}assetList`}
         component={AssetListContainer}
       />
+      <Route path={`${props.match.path}tabletest`} component={TableTest} />
     </div>
   );
 }

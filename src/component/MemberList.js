@@ -19,7 +19,7 @@ export function AdminMemberList({ memberList }) {
             <TableCell>{row.contactA}</TableCell>
             <TableCell>{row.contactB}</TableCell>
             <TableCell>{row.joinedAt.substring(0, 16)}</TableCell>
-            <TableCell align="right">{row.role}</TableCell>
+            <TableCell align="right">{row.memberType}</TableCell>
             <TableCell></TableCell>
           </TableRow>
         ))}
@@ -32,7 +32,7 @@ export default function TopMemberList({
   memberList,
   onChangeContactA,
   onChangeContactB,
-  onChangeRole,
+  onChangeMemberType,
 }) {
   return (
     <>
@@ -61,8 +61,8 @@ export default function TopMemberList({
               <NativeSelect
                 labelid="label"
                 id="select"
-                defaultValue={row.role}
-                onChange={(e) => onChangeRole(e, index)}
+                defaultValue={row.memberType}
+                onChange={(e) => onChangeMemberType(e, index)}
                 selected
               >
                 <option value="TOP">TOP</option>
