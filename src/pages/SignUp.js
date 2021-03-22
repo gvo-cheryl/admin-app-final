@@ -16,8 +16,8 @@ import {
   Toolbar,
 } from "@material-ui/core";
 import Copyright from "../component/css/copyright";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useHistory, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { joinUser } from "../store/action";
 
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +55,10 @@ function SignUp() {
   const [termError, setTermError] = useState(false);
   const [nameError, setNameError] = useState();
   const [phoneError, setPhoneError] = useState();
+  const { loginSuccess } = useSelector((state) => state.User);
   const dispatch = useDispatch();
+
+  if (loginSuccess) return <Redirect to="/" />;
 
   const onSubmit = (e) => {
     e.preventDefault();

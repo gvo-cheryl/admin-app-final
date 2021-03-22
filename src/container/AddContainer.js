@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import Title from "../component/Title";
+import { post } from "../store/axios";
 
 function AddContainer({ category, assets, classes, history }) {
   const [assetDetail_id, setAssetDetailId] = useState(assets[0].assetDetail_id);
@@ -83,8 +84,8 @@ function AddContainer({ category, assets, classes, history }) {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(history);
-    axios.post("/assetlist/register", { asset: assetList }).then((res) => {
-      window.location.replace("/assetList");
+    post("post", "/assetlist/register", { asset: assetList }).then((res) => {
+      window.location.replace("/assetlist");
     });
   };
 

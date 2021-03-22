@@ -4,6 +4,7 @@ export const JOIN_USER = "JOIN_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const UPDATE_USER = "UPDATE_USER";
+export const PW_CHANGE = "PW_CHANGE";
 
 export const ASSET_LIST = "ASSET_LIST";
 export const ASSET_ONE_UPDATE = "ASSET_ONE_UPDATE";
@@ -47,5 +48,13 @@ export function menuHandler(action) {
   return {
     type: MENU_OPEN,
     payload: action,
+  };
+}
+
+export function setPassword(dataToSubmit) {
+  const data = post("post", "/setpassword", dataToSubmit);
+  return {
+    type: PW_CHANGE,
+    payload: data,
   };
 }

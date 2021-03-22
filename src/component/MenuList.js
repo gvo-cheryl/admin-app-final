@@ -22,7 +22,7 @@ export const menuListItems = () => {
         </ListItemIcon>
         <ListItemText primary="전체회원관리" />
       </ListItem>
-      <ListItem button component={Link} to="/assetList">
+      <ListItem button component={Link} to="/assetlist">
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>

@@ -49,7 +49,7 @@ function Login(props) {
   const [password, setPassword] = useState();
   const [error, setError] = useState();
   const { loginSuccess, response } = useSelector((state) => state.User);
-  //dispatch(logout());
+
   if (loginSuccess) return <Redirect to="/" />;
 
   const onSubmit = async (e) => {

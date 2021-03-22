@@ -13,6 +13,8 @@ import Title from "../component/Title";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import AddContainer from "./AddContainer";
+import { Redirect } from "react-router-dom";
+import { post } from "../store/axios";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -38,17 +40,18 @@ function useConnect() {
 
   useEffect(() => {
     if (member.memberType === "TOP") {
-      axios
-        .post("/assetlist", { withCredentials: true }, {})
-        .then((response) => {
-          setAssets(response.data.rData.assetList);
-          setCategory(response.data.rData.assetList[0].personal.slice(0, 7));
-        });
-    } else if (member.memberType === "ADMIN") {
-      axios.post("/assetone", { adminId: member.adminId }).then((response) => {
-        setAssets(response.data.rData.assetList);
-        setCategory(response.data.rData.assetList[0].personal.slice(0, 7));
+      post("post", "/assetlist", {}).then((response) => {
+        console.log(response);
+        setAssets(response.rData.assetList);
+        setCategory(response.rData.assetList[0].personal.slice(0, 7));
       });
+    } else if (member.memberType === "ADMIN") {
+      post("post", "/assetone", { adminId: member.adminId }).then(
+        (response) => {
+          setAssets(response.rData.assetList);
+          setCategory(response.rData.assetList[0].personal.slice(0, 7));
+        }
+      );
     }
 
     for (var i = 0; i < assets.length; i++) {
@@ -68,20 +71,18 @@ function AssetList(props) {
   const [assets, category, loading] = useConnect();
   const [add, setAdd] = useState("");
 
-  useEffect(() => {
-    setAdd("");
-  }, [setAdd]);
+  if (!loginSuccess) return <Redirect to="/login" />;
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(assets);
-    axios.post("/assetlist/update", { assets: assets }).then((response) => {
-      if (response.data.rCode === "SUCCESS") {
+    post("post", "/assetlist/update", { assets: assets }).then((response) => {
+      if (response.rCode === "SUCCESS") {
         alert("수정완료");
       } else {
         alert("ERROR");
       }
-      props.history.push("/assetList");
+      window.location.replace("/assetlist");
     });
   };
 

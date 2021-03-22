@@ -33,14 +33,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function InfoUpdate(props) {
+function Password(props) {
   const { loginSuccess, response } = useSelector((state) => state.User);
   const member = response.rData.member;
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const [email] = useState(member.email);
-  const [password] = useState(member.password);
   const [name, setName] = useState(member.name);
   const [contactA, setContactA] = useState(member.contactA);
   const [contactB, setContactB] = useState(member.contactB);
@@ -61,7 +60,6 @@ function InfoUpdate(props) {
       contactA,
       contactB,
     };
-    console.log(contactA);
     dispatch(updateUser(body)).then((res) => {
       const rCode = res.payload.rCode;
       switch (rCode) {
@@ -161,15 +159,15 @@ function InfoUpdate(props) {
             수정하기
           </Button>
           <Grid container justify="center">
-            {/* <Grid item>
+            <Grid item>
               <Link href="/password" variant="body2">
                 비밀번호수정
               </Link>
-            </Grid> */}
+            </Grid>
           </Grid>
         </form>
       </div>
     </Container>
   );
 }
-export default InfoUpdate;
+export default Password;

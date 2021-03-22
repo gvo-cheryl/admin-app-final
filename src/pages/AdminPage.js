@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/reducer";
 import MemberListContainer from "../container/MemberListContainer";
 import AssetListContainer from "../container/AssetListContainer";
-import TableTest from "../component/TableTest";
 import { menuHandler } from "../store/action";
 
 function AdminPage(props) {
@@ -32,9 +31,6 @@ function AdminPage(props) {
   const [open, setOpen] = useState(menuOpen);
   const dispatch = useDispatch();
   //dispatch(logout());
-
-  console.log(open);
-
   if (!loginSuccess) return <Redirect to="/login" />;
 
   const handleDrawerOpen = () => {
@@ -48,7 +44,9 @@ function AdminPage(props) {
 
   const onClick = () => {
     dispatch(logout());
-    props.history.push("/login");
+    setTimeout(() => {
+      props.history.push("/login");
+    }, 1000);
   };
 
   return (
@@ -114,10 +112,9 @@ function AdminPage(props) {
         component={MemberListContainer}
       />
       <Route
-        path={`${props.match.path}assetList`}
+        path={`${props.match.path}assetlist`}
         component={AssetListContainer}
       />
-      <Route path={`${props.match.path}tabletest`} component={TableTest} />
     </div>
   );
 }

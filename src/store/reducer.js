@@ -6,6 +6,7 @@ import {
   MEMBER_LIST,
   MEMBER_LIST_UPDATE,
   MENU_OPEN,
+  PW_CHANGE,
 } from "./action";
 
 export const logout = () => ({ type: LOGOUT_USER });
@@ -34,6 +35,7 @@ export default function User(state = initialState, action) {
         loginSuccess: true,
         response: action.payload,
       };
+
     case LOGOUT_USER:
       return {
         ...state,
@@ -57,6 +59,8 @@ export default function User(state = initialState, action) {
       return { ...state, loginSuccess: true, response: action.payload };
     case MENU_OPEN:
       return { ...state, menuOpen: action.payload };
+    case PW_CHANGE:
+      return { ...state, response: action.payload };
     default:
       return state;
   }

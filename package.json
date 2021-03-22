@@ -9,6 +9,7 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
     "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
     "history": "^4.10.1",
     "http-proxy-middleware": "^0.19.1",
     "react": "^17.0.1",
@@ -27,7 +28,6 @@
     "thunk": "^0.0.1",
     "web-vitals": "^1.1.0"
   },
-  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

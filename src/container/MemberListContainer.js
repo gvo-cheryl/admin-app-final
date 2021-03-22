@@ -6,6 +6,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import TopMemberList, { AdminMemberList } from "../component/MemberList";
+import { get, post } from "../store/axios";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -20,9 +21,9 @@ function useConnect() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get("/memberlist").then((response) => {
+    get("get", "/memberlist").then((response) => {
       console.log(response);
-      setMemberList(response.data.rData.memberList);
+      setMemberList(response.rData.memberList);
     });
     setLoading(false);
   }, [dispatch]);
@@ -35,12 +36,13 @@ function MemberListContainer(props) {
   const classes = useStyles();
   const [memberList, loading] = useConnect();
 
+  if (!loginSuccess) return <Redirect to="/login" />;
+
   const onSubmit = (e) => {
     e.preventDefault();
 
-    axios.post("/memberlist/update", { members: memberList }).then((res) => {
-      console.log(res);
-      if (res.data.rCode === "SUCCESS") {
+    post("post", "/memberlist/update", { members: memberList }).then((res) => {
+      if (res.rCode === "SUCCESS") {
         alert("수정완료");
       } else {
         alert("ERROR");
